@@ -41,5 +41,12 @@
       "last 1 safari version"
     ]
   },
+<<<<<<< HEAD
   "homepage": "https://Liupengcheng1025.github.io/maskingSystem/"
+=======
+  "homepage": "https://Liupengcheng1025.github.io/maskingSystem/",
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
+  }
+>>>>>>> 68929c1ef1953070d602c35c437c4d6f8a8d601c
 }
