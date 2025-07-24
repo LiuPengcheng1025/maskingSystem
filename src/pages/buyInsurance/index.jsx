@@ -151,7 +151,7 @@ const BuyInsurancePage = () => {
               onSearch={handleSearch}
               style={{ width: 200, marginBottom: 16 }}
             />
-            <p>请勾选需要购买保险的员工</p>
+
             <Table
               rowSelection={rowSelection}
               columns={columns}
