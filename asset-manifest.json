@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/maskingSystem/static/css/main.1387ff68.css",
+    "main.js": "/maskingSystem/static/js/main.ec158a7d.js",
+    "index.html": "/maskingSystem/index.html",
+    "main.1387ff68.css.map": "/maskingSystem/static/css/main.1387ff68.css.map",
+    "main.ec158a7d.js.map": "/maskingSystem/static/js/main.ec158a7d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1387ff68.css",
+    "static/js/main.ec158a7d.js"
+  ]
+}
