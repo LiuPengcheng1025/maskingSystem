@@ -17,7 +17,7 @@
   },
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+  "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -41,8 +41,5 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://[你的用户名].github.io/[仓库名]/",
-  "devDependencies": {
-    "gh-pages": "^6.3.0"
-  }
+  "homepage": "https://Liupengcheng1025.github.io/maskingSystem/"
 }
