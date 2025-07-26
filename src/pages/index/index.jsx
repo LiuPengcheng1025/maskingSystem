@@ -201,7 +201,7 @@ const Login = () => {
 
   // 使用 useState 管理卡片的图片路径和文字内容
   const [cardImage, setCardImage] = useState(arrowhead);
-  const [cardText, setCardText] = useState('脱敏处理<br />并存入数据库');
+  const [cardText, setCardText] = useState('前往数据库<br />脱敏处理<br />并存入数据库');
 
   // 使用 useState 管理页面标题
   const [pageTitle, setPageTitle] = useState('员工信息录入系统');
@@ -220,7 +220,7 @@ const Login = () => {
       setPageTitle('员工数据库');
     } else {
       setCardImage(arrowhead);
-      setCardText('脱敏处理<br />并存入数据库');
+      setCardText('前往数据库<br />脱敏处理<br />并存入数据库');
       // 切换回原标题
       setPageTitle('员工信息录入系统');
     }
