@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Card, Layout, Input, Table, Space, Modal } from 'antd';
-import Title from 'antd/es/skeleton/Title';
+import { Button, Card, Layout, Input, Table, Modal } from 'antd';
 
 const { Header, Content } = Layout;
 const { Search } = Input;
@@ -9,7 +8,7 @@ const BuyInsurancePage = () => {
   // 用于控制显示哪个 Card 的状态
   const [showFirstCard, setShowFirstCard] = useState(true);
   // 用于控制按钮显示的文本
-  const [buttonText, setButtonText] = useState('去保险公司');
+  const [buttonText, setButtonText] = useState('查询勾选用户的明文信息');
   // 模拟表格数据
   const [tableData, setTableData] = useState([
     { id: 1, name: '张三' },
@@ -64,7 +63,7 @@ const BuyInsurancePage = () => {
   // 切换显示 Card 和按钮文本的函数
   const handleToggleCard = () => {
     setShowFirstCard(!showFirstCard);
-    setButtonText(showFirstCard ? '返回人力资源系统' : '去保险公司');
+    setButtonText(showFirstCard ? '返回人力资源系统' : '查询勾选用户的明文信息');
   };
 
   // 处理查询
@@ -139,31 +138,31 @@ const BuyInsurancePage = () => {
   return (
     <Layout>
       <Header style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+        <Search
+              placeholder="输入姓名查询"
+              onSearch={handleSearch}
+              style={{ width: 200, marginBottom: 0 ,marginRight:'650px'}}
+
+            />
         <Button type="primary" onClick={handleToggleCard}>
           {buttonText}
         </Button>
       </Header>
       <Content style={{ padding: '24px' }}>
         {showFirstCard ? (
-          <Card title="人力资源系统" style={{ width: '100%' }}>
-            <Search
-              placeholder="输入姓名查询"
-              onSearch={handleSearch}
-              style={{ width: 200, marginBottom: 16 }}
-            />
-
+          <Card style={{ width: '100%', backgroundColor: 'rgb(0, 21, 41)' }}>
             <Table
               rowSelection={rowSelection}
               columns={columns}
               dataSource={tableData}
               rowKey="id"
+              bordered
+              style={{ border: '1px solid black',  backgroundColor: '#ffffffff'}}
             />
-            <p>勾选后请前往保险公司</p>
           </Card>
         ) : (
-           <Header style={{ height: '100vh', overflow: 'auto' }}> 
-           <p style={{ color: 'white', textAlign: 'center', fontSize: '37px' }}>保险公司</p>
-            <Card title="保险公司看到的用户信息" style={{ width: '100%', maxWidth: '100%', marginTop: '0px' }}>
+           <Header style={{ height: '650px', overflow: 'auto' }}> 
+            <Card title="保险公司看到的用户信息" style={{ width: '100%', maxWidth: '100%', marginTop: '30px' }}>
             <p>勾选的姓名：{selectedNames.join(', ')}</p>
             <Table
               columns={columns2}

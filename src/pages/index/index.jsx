@@ -1,7 +1,7 @@
 // src/Login.js
 import React, { useState, useRef } from 'react';
-import { Form, Input, Button, Checkbox, message, Card, Row, Col , Select , Table , Tag ,Space, Modal } from 'antd'; 
-import { HashRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { Form, Input, Button, message, Card, Row, Col , Select , Table  ,Space, Modal } from 'antd'; 
+import { Link } from "react-router-dom";
 import arrowhead from '../../components/background/Arrowhead.png';
 import arrowhead2 from '../../components/background/Arrowhead2.png';
 import './index.css';
@@ -201,7 +201,7 @@ const Login = () => {
 
   // 使用 useState 管理卡片的图片路径和文字内容
   const [cardImage, setCardImage] = useState(arrowhead);
-  const [cardText, setCardText] = useState('前往数据库<br />脱敏处理<br />并存入数据库');
+  const [cardText, setCardText] = useState('点击前往<br />应用端数据库');
 
   // 使用 useState 管理页面标题
   const [pageTitle, setPageTitle] = useState('员工信息录入系统');
@@ -303,7 +303,8 @@ const Login = () => {
         )}
         <Col span={3}>
        <Card 
-          style={{ marginTop: 150 }} 
+          style={{ marginTop: 50, width: "150px", backgroundColor: '#00CED1', height: '100px' }} 
+
           variant={false}
           onClick={handleSecondCardClick} 
           // 绑定鼠标进入和离开事件
@@ -312,13 +313,27 @@ const Login = () => {
           // 根据状态添加类名
           className={isCardHovered ? 'card-hovered' : ''} 
         >
-          <img 
-            src={cardImage} 
-            alt="Card Image" 
-            style={{ width: '100%', height: 'auto' }} 
-          />
-          <p style={{ textAlign: 'center', marginTop: 10 }} dangerouslySetInnerHTML={{ __html: cardText }} />
+         
+          <p style={{ textAlign: 'center', marginTop: 0 }} dangerouslySetInnerHTML={{ __html: cardText }} />
         </Card>
+        <a href="http://localhost:8181/inspect?username=admin&password=123456" target="_blank"
+           style={{ 
+             display: 'inline-block', 
+             width: '150px', 
+             height: '100px', 
+             backgroundColor: 'black', 
+             color: 'white', 
+             textDecoration: 'none',
+             transition: 'transform 0.3s ease',
+             transformOrigin: 'center',
+             marginTop: 20
+
+           }} rel="noreferrer"
+           onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
+           onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+        >
+          <p style={{ textAlign: 'center', lineHeight: '25px', margin: 0, height: '100px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>点击前往<br/>脱敏服务端数据库</p>
+        </a>
         <Modal 
           title="提示信息" 
           open={isModalVisible} 
@@ -340,7 +355,7 @@ const Login = () => {
         </Modal>
         </Col>
         {!showFirstCard && (
-        <Col span={21}>
+        <Col span={20} style={{ marginLeft: 'auto' }}>
           <Card title="数据库">
             {/* 绑定点击事件 */}
             <Button type="primary" style={{ marginRight: 16 }} onClick={refreshData}>更新数据库</Button>

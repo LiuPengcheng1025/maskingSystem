@@ -3,7 +3,7 @@ import {
   InfoCircleFilled,
   QuestionCircleFilled,
 } from '@ant-design/icons';
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { PageContainer, ProCard, ProLayout } from '@ant-design/pro-components';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // 引入 useNavigate 钩子
