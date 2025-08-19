@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/maskingSystem/static/css/main.1387ff68.css",
-    "main.js": "/maskingSystem/static/js/main.f0b6050f.js",
+    "main.js": "/maskingSystem/static/js/main.c60b93bb.js",
     "index.html": "/maskingSystem/index.html",
     "main.1387ff68.css.map": "/maskingSystem/static/css/main.1387ff68.css.map",
-    "main.f0b6050f.js.map": "/maskingSystem/static/js/main.f0b6050f.js.map"
+    "main.c60b93bb.js.map": "/maskingSystem/static/js/main.c60b93bb.js.map"
   },
   "entrypoints": [
     "static/css/main.1387ff68.css",
-    "static/js/main.f0b6050f.js"
+    "static/js/main.c60b93bb.js"
   ]
 }
