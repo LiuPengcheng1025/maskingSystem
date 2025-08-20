@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Card, Layout, Input, Table, Modal } from 'antd';
-
+import { getNameList , getInsuranceList} from './service.ts';
 const { Header, Content } = Layout;
 const { Search } = Input;
 
@@ -9,50 +9,33 @@ const BuyInsurancePage = () => {
   const [showFirstCard, setShowFirstCard] = useState(true);
   // 用于控制按钮显示的文本
   const [buttonText, setButtonText] = useState('查询勾选用户的明文信息');
+  const [aids,setAids] = useState([]);
   // 模拟表格数据
   const [tableData, setTableData] = useState([
-    { id: 1, name: '张三' },
-    { id: 2, name: '李四' },
-    { id: 3, name: '王五' },
   ]);
-  const [tableData2, setTableData2] = useState([
-    {
-        key: '1',
-        name: '张三',
-        phone: '13800000000',
-        idCard: '110101199001010011',
-        address: '北京市海淀区',
-        position: '组长',
-        beizhu: '无',
-      },
-      {
-        key: '2',
-        name: '李四',
-        phone: '13800000001',
-        idCard: '110101199001010012',
-        address: '北京市海淀区',
-        position: '经理',
-        beizhu: '无',
-      },
-      {
-        key: '3',
-        name: '王五',
-        phone: '13800000002',
-        idCard: '110101199001010013',
-        address: '北京市朝阳区',
-        position: '员工',
-        beizhu: '新员工',
-      },
-      {
-        key: '4',
-        name: '赵六',
-        phone: '13800000003',
-        idCard: '110101199001010014',
-        address: '北京市东城区',
-        position: '组长',
-        beizhu: '晋升',
-      },
-  ]);
+useEffect(() => {
+  // 调用 getNameList 接口获取真实数据
+  const fetchData = async () => {
+    try {
+      const data = await getNameList();
+      console.log('data:',data.data.data);
+      // 将接口返回的 aid 转换为 id
+      const transformedData = data.data.data.map(item => ({
+        ...item,
+        id: item.aid, // 将 aid 的值赋给 id
+      }));
+      setTableData(transformedData);
+      
+    } catch (error) {
+      console.error('获取数据失败:', error);
+    }
+  };
+
+  fetchData();
+}, []);
+   // 添加数据获取 useEffect
+  
+  const [tableData2, setTableData2] = useState([]);
   // 存储勾选的选项
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   // 存储勾选的姓名
@@ -74,12 +57,17 @@ const BuyInsurancePage = () => {
   };
 
   // 处理表格行勾选
-  const onSelectChange = (newSelectedRowKeys) => {
+  const onSelectChange = async (newSelectedRowKeys) => {
     setSelectedRowKeys(newSelectedRowKeys);
     const selected = newSelectedRowKeys.map(key => 
-      tableData.find(item => item.id === key)?.name
+      tableData.find(item => item.id === key)?.id
     ).filter(Boolean);
     setSelectedNames(selected);
+    console.log('selected:',selected);
+    const res = await getInsuranceList({aids:selected});
+    console.log(res.data)
+    setTableData2(res.data.data);
+    
   };
 
   const columns = [
@@ -103,8 +91,8 @@ const BuyInsurancePage = () => {
     },
     {
       title: '身份证号',
-      dataIndex: 'idCard',
-      key: 'idCard',
+      dataIndex: 'id',
+      key: 'id',
     },
     {
       title: '地址',
@@ -118,8 +106,8 @@ const BuyInsurancePage = () => {
     },
     {
       title: '备注',
-      dataIndex: 'beizhu',
-      key: 'beizhu',
+      dataIndex: 'descr',
+      key: 'descr',
     },
   ];
 
@@ -158,16 +146,24 @@ const BuyInsurancePage = () => {
               rowKey="id"
               bordered
               style={{ border: '1px solid black',  backgroundColor: '#ffffffff'}}
+               pagination={{ 
+    pageSize: 8, 
+    showTotal: (total) => `共 ${total} 条记录`
+  }}
             />
           </Card>
         ) : (
            <Header style={{ height: '650px', overflow: 'auto' }}> 
             <Card title="保险公司看到的用户信息" style={{ width: '100%', maxWidth: '100%', marginTop: '30px' }}>
-            <p>勾选的姓名：{selectedNames.join(', ')}</p>
+            {/* <p>勾选的姓名：{selectedNames.join(', ')}</p> */}
             <Table
-              columns={columns2}
-              dataSource={tableData2}
-            />
+  columns={columns2}
+  dataSource={tableData2}
+  pagination={{ 
+    pageSize: 5, 
+    showTotal: (total) => `共 ${total} 条记录`
+  }}
+/>
           </Card>
           </Header>
         )}

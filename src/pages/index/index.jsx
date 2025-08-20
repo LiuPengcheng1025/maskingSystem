@@ -4,6 +4,9 @@ import { Form, Input, Button, message, Card, Row, Col , Select , Table  ,Space, 
 import { Link } from "react-router-dom";
 import arrowhead from '../../components/background/Arrowhead.png';
 import arrowhead2 from '../../components/background/Arrowhead2.png';
+import { userInfoAdd ,getInfoEntryList } from './service.ts';
+import { useEffect } from 'react';
+
 import './index.css';
 
 const Login = () => {
@@ -15,19 +18,19 @@ const Login = () => {
       key: '1',
       name: '张三',
       phone: '138************00',
-      idCard: '1101************10011',
+      id: '1101************10011',
       address: '北京市************',
       position: '组长',
-      beizhu: '无',
+      descr: '无',
     },
     {
       key: '2',
       name: '李四',
       phone: '138************01',
-      idCard: '110************10012',
+      id: '110************10012',
       address: '北京市************',
       position: '经理',
-      beizhu: '无',
+      descr: '无',
     },
   ]);
 
@@ -35,17 +38,23 @@ const Login = () => {
   const formRef = useRef(null);
 
   // 表单提交处理
-  const onFinish = (values) => {
-    setLoading(true);
-    console.log('Received values:', values);
-    setTimeout(() => {
-      setLoading(false);
-      message.success('提交成功!');
-      // 显示新的弹窗
-      setIsSubmitModalVisible(true); 
-      
-    }, 1000);
-  };
+const onFinish = async (values) => {
+  setLoading(true);
+  console.log('Received values:', values);
+  try {
+    // 使用await调用userInfoAdd接口
+    const res = await userInfoAdd(values);
+    console.log('res:',res.data.ok);
+    message.success('提交成功!');
+    setIsSubmitModalVisible(true);
+    // 清空输入框内容
+    formRef.current.resetFields();
+  } catch (error) {
+    message.error('提交失败: ' + error.message);
+  } finally {
+    setLoading(false);
+  }
+};
 
   // 使用 useState 管理提交成功后的弹窗显示状态
   const [isSubmitModalVisible, setIsSubmitModalVisible] = useState(false);
@@ -86,8 +95,8 @@ const Login = () => {
     },
     {
       title: '身份证号',
-      dataIndex: 'idCard',
-      key: 'idCard',
+      dataIndex: 'id',
+      key: 'id',
     },
     {
       title: '地址',
@@ -101,8 +110,8 @@ const Login = () => {
     },
     {
       title: '备注',
-      dataIndex: 'beizhu',
-      key: 'beizhu',
+      dataIndex: 'descr',
+      key: 'descr',
     },
     {
       title: 'Action',
@@ -124,7 +133,7 @@ const Login = () => {
         key: '1',
         name: '张三',
         phone: '138************00',
-        idCard: '1101************10011',
+        id: '1101************10011',
         address: '北京市************',
         position: '组长',
         beizhu: '无',
@@ -133,7 +142,7 @@ const Login = () => {
         key: '2',
         name: '李四',
         phone: '138************01',
-        idCard: '110************10012',
+        id: '110************10012',
         address: '北京市************',
         position: '经理',
         beizhu: '无',
@@ -142,7 +151,7 @@ const Login = () => {
         key: '3',
         name: '王五',
         phone: '138************00',
-        idCard: '1101************10011',
+        id: '1101************10011',
         address: '北京市************',
         position: '组长',
         beizhu: '无',
@@ -151,7 +160,7 @@ const Login = () => {
         key: '4',
         name: '赵六',
         phone: '138************01',
-        idCard: '110************10012',
+        id: '110************10012',
         address: '北京市************',
         position: '经理',
         beizhu: '无',
@@ -160,7 +169,7 @@ const Login = () => {
         key: '5',
         name: '张七',
         phone: '138************00',
-        idCard: '1101************10011',
+        id: '1101************10011',
         address: '北京市************',
         position: '组长',
         beizhu: '无',
@@ -169,7 +178,7 @@ const Login = () => {
         key: '6',
         name: '王八',
         phone: '138************01',
-        idCard: '110************10012',
+        id: '110************10012',
         address: '北京市************',
         position: '经理',
         beizhu: '无',
@@ -220,11 +229,43 @@ const Login = () => {
       setPageTitle('员工数据库');
     } else {
       setCardImage(arrowhead);
-      setCardText('前往数据库<br />脱敏处理<br />并存入数据库');
+      setCardText('点击前往<br />应用数据库');
       // 切换回原标题
       setPageTitle('员工信息录入系统');
     }
   };
+
+   // 添加状态管理
+  const [dataSource, setDataSource] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [total, setTotal] = useState(0);
+  // 获取表格数据
+  const fetchTableData = async () => {
+  try {
+    const response = await getInfoEntryList({
+      page: currentPage,
+      pageSize: pageSize
+    });
+    console.log(currentPage,pageSize,response);
+    // 确保dataSource始终是数组
+    const tableData = response.data.data;
+    setTotal(response.data.total);
+    // const tableData = Array.isArray(response.data) ? response.data : [];
+    console.log(tableData);
+
+    setDataSource(tableData);
+  } catch (error) {
+    console.error('获取表格数据失败:', error);
+    // 错误时也确保dataSource是数组
+    setDataSource([]);
+    setTotal(0);
+  }
+};
+   // 初始加载和分页变化时获取数据
+  useEffect(() => {
+    fetchTableData();
+  }, [currentPage, pageSize]);
 
   return (
     <>
@@ -248,7 +289,7 @@ const Login = () => {
                 layout="vertical"
               >
                 <Form.Item
-                  name="username"
+                  name="name"
                   rules={[{ required: true, message: '请输入员工姓名!' }]}
                 >
                   <Input placeholder='姓名'/>
@@ -262,7 +303,7 @@ const Login = () => {
                 </Form.Item>
   
                 <Form.Item
-                  name="idCard"
+                  name="id"
                   rules={[{ required: true, message: '请输入身份证号!' }]}
                 >
                   <Input.Password placeholder='身份证号'/>
@@ -287,14 +328,14 @@ const Login = () => {
                 </Form.Item>
   
                 <Form.Item
-                  name="beizhu"
+                  name="descr"
                 >
                   <Input placeholder='备注'/>
                 </Form.Item>
   
                 <Form.Item>
                   <Button type="primary" htmlType="submit" block loading={loading}>
-                    <Link to="/large_display">提交</Link>
+                    提交
                   </Button>
                 </Form.Item>
               </Form>
@@ -316,7 +357,7 @@ const Login = () => {
          
           <p style={{ textAlign: 'center', marginTop: 0 }} dangerouslySetInnerHTML={{ __html: cardText }} />
         </Card>
-        <a href="http://localhost:8181/inspect?username=admin&password=123456" target="_blank"
+        <a href="http://localhost:8181/inspect?name=admin&password=123456" target="_blank"
            style={{ 
              display: 'inline-block', 
              width: '150px', 
@@ -358,17 +399,28 @@ const Login = () => {
         <Col span={20} style={{ marginLeft: 'auto' }}>
           <Card title="数据库">
             {/* 绑定点击事件 */}
-            <Button type="primary" style={{ marginRight: 16 }} onClick={refreshData}>更新数据库</Button>
+            {/* <Button type="primary" style={{ marginRight: 16 }} onClick={refreshData}>更新数据库</Button> */}
             {/* 自定义分页配置的表格 */}
             <Table 
-              columns={columns} 
-              dataSource={data} 
-              pagination={{
-               // pageSize: 5, // 每页显示 5 条数据
-                showQuickJumper: true, // 显示快速跳转输入框
-                showSizeChanger: true, // 显示每页数量选择器
-              }}
-            />
+        columns={columns} 
+        dataSource={dataSource} 
+        pagination={{
+          current: currentPage,
+          pageSize: pageSize,
+          total: total,
+          showQuickJumper: true,
+          showSizeChanger: true,
+          // 分页变化回调
+          onChange: (page, pageSize) => {
+            setCurrentPage(page);
+            setPageSize(pageSize);
+          },
+          onShowSizeChange: (current, size) => {
+            setCurrentPage(1);
+            setPageSize(size);
+          }
+        }}
+      />
           </Card>
         </Col>
         )}

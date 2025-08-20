@@ -12,12 +12,12 @@ export default {
       {
         path: '/1',
         name: <span style={{ color: 'white', }}>员工信息录入</span>,
-        icon: <img src={logo1} style={{ width: '20px', height: '20px' }} alt="员工信息录入图标" />, 
+        icon: <img src={logo1} style={{ width: '20px', height: '20px' }} alt="员工信息录入" />, 
       },
       {
         path: '/2',
-        name: <span style={{ color: 'white', }}>员工购买保险</span>,
-        icon: <img src={logo2} style={{ width: '20px', height: '20px' }} alt="员工购买保险" />, 
+        name: <span style={{ color: 'white', }}>员工信息查询</span>,
+        icon: <img src={logo2} style={{ width: '20px', height: '20px' }} alt="员工信息查询" />, 
       },
       {
         path: '/3',
