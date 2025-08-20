@@ -170,7 +170,7 @@ useEffect(() => {
       </Content>
       {/* 弹窗组件 */}
       <Modal
-        title="提示"
+        title="脱敏查询"
         open={isModalVisible}
         onOk={() => setIsModalVisible(false)}
         onCancel={() => setIsModalVisible(false)}

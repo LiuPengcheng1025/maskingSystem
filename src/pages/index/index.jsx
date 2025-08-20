@@ -113,16 +113,7 @@ const onFinish = async (values) => {
       dataIndex: 'descr',
       key: 'descr',
     },
-    {
-      title: 'Action',
-      key: 'action',
-      render: (_, record) => (
-        <Space size="middle">
-          <a>编辑{record.name}</a>
-          <a>删除{record.name}</a>
-        </Space>
-      ),
-    },
+    
   ];
 
   // 刷新数据库
@@ -238,7 +229,8 @@ const onFinish = async (values) => {
    // 添加状态管理
   const [dataSource, setDataSource] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  // 修改pageSize的初始值为5
+  const [pageSize, setPageSize] = useState(5);
   const [total, setTotal] = useState(0);
   // 获取表格数据
   const fetchTableData = async () => {
@@ -376,7 +368,7 @@ const onFinish = async (values) => {
           <p style={{ textAlign: 'center', lineHeight: '25px', margin: 0, height: '100px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>点击前往<br/>脱敏服务端数据库</p>
         </a>
         <Modal 
-          title="提示信息" 
+          title="分布式脱敏介绍" 
           open={isModalVisible} 
           onOk={handleOk} 
           onCancel={handleCancel}
@@ -401,26 +393,31 @@ const onFinish = async (values) => {
             {/* 绑定点击事件 */}
             {/* <Button type="primary" style={{ marginRight: 16 }} onClick={refreshData}>更新数据库</Button> */}
             {/* 自定义分页配置的表格 */}
-            <Table 
-        columns={columns} 
-        dataSource={dataSource} 
-        pagination={{
-          current: currentPage,
-          pageSize: pageSize,
-          total: total,
-          showQuickJumper: true,
-          showSizeChanger: true,
-          // 分页变化回调
-          onChange: (page, pageSize) => {
-            setCurrentPage(page);
-            setPageSize(pageSize);
-          },
-          onShowSizeChange: (current, size) => {
-            setCurrentPage(1);
-            setPageSize(size);
-          }
-        }}
-      />
+            <div className="table-container">
+              <Table 
+                className="hover-scale-table"
+                columns={columns} 
+                dataSource={dataSource} 
+                pagination={{
+                  current: currentPage,
+                  pageSize: pageSize, // 这里会使用我们设置的初始值5
+                  total: total,
+                  showQuickJumper: true,
+                  showSizeChanger: true,
+                  // 分页变化回调
+                  onChange: (page, pageSize) => {
+                    setCurrentPage(page);
+                    setPageSize(pageSize);
+                  },
+                  onShowSizeChange: (current, size) => {
+                    setCurrentPage(1);
+                    setPageSize(size);
+                  }
+                }}
+                // 添加表格属性，确保表头固定
+                scroll={{ y: 'calc(100% - 50px)' }} 
+              />
+            </div>
           </Card>
         </Col>
         )}
