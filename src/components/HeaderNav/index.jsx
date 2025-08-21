@@ -33,7 +33,7 @@ export default () => {
           </div>
         }
         // 调整标题的字体大小和颜色
-        title={<span style={{ color: 'white', fontSize: '24px' }}>人力资源</span>}
+        title={<span style={{ color: 'white', fontSize: '24px' }}>Human resources</span>}
         bgLayoutImgList={[
           {
             //src: 'https://bpic.588ku.com/back_pic/06/11/81/36621f8dff125ae.jpg',  // 设置背景图URL
@@ -48,7 +48,7 @@ export default () => {
         {...defaultProps}
         avatarProps={{
           // src: '../background/logo.jpg',
-          title: <span style={{ color: 'white' }}>用户名称</span>,
+          title: <span style={{ color: 'white' }}>User name</span>,
           size: 'large',
         }}
         actionsRender={(props) => {

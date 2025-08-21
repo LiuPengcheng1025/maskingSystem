@@ -11,28 +11,28 @@ export default {
     routes: [
       {
         path: '/1',
-        name: <span style={{ color: 'white', }}>员工信息录入</span>,
-        icon: <img src={logo1} style={{ width: '20px', height: '20px' }} alt="员工信息录入" />, 
+        name: <span style={{ color: 'white', }}>Information Entry</span>,
+        icon: <img src={logo1} style={{ width: '20px', height: '20px' }} alt="Information Entry" />, 
       },
       {
         path: '/2',
-        name: <span style={{ color: 'white', }}>员工信息查询</span>,
-        icon: <img src={logo2} style={{ width: '20px', height: '20px' }} alt="员工信息查询" />, 
+        name: <span style={{ color: 'white', }}>Information Query</span>,
+        icon: <img src={logo2} style={{ width: '20px', height: '20px' }} alt="Information Query" />, 
       },
       {
         path: '/3',
-        name: <span style={{ color: 'white', }}>其他功能1</span>,
-        icon: <img src={logo3} style={{ width: '20px', height: '20px' }} alt="其他功能1" />, 
+        name: <span style={{ color: 'white', }}>Other Function 1</span>,
+        icon: <img src={logo3} style={{ width: '20px', height: '20px' }} alt="Other Function 1" />, 
       },
       {
         path: '/4',
-        name: <span style={{ color: 'white', }}>其他功能2</span>,
-        icon: <img src={logo4} style={{ width: '20px', height: '20px' }} alt="其他功能2" />, 
+        name: <span style={{ color: 'white', }}>Other Function 2</span>,
+        icon: <img src={logo4} style={{ width: '20px', height: '20px' }} alt="Other Function 2" />, 
       },
       {
         path: '/5',
-        name: <span style={{ color: 'white', }}>其他功能3</span>,
-        icon: <img src={logo5} style={{ width: '20px', height: '20px' }} alt="其他功能3" />, 
+        name: <span style={{ color: 'white', }}>Other Function 3</span>,
+        icon: <img src={logo5} style={{ width: '20px', height: '20px' }} alt="Other Function 3" />, 
       },
       
       

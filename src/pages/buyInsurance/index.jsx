@@ -8,8 +8,7 @@ const BuyInsurancePage = () => {
   // 用于控制显示哪个 Card 的状态
   const [showFirstCard, setShowFirstCard] = useState(true);
   // 用于控制按钮显示的文本
-  const [buttonText, setButtonText] = useState('查询勾选用户的明文信息');
-  const [aids,setAids] = useState([]);
+  const [buttonText, setButtonText] = useState('Query Selected Users\' Plaintext Info');
   // 模拟表格数据
   const [tableData, setTableData] = useState([
   ]);
@@ -44,9 +43,9 @@ useEffect(() => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   // 切换显示 Card 和按钮文本的函数
-  const handleToggleCard = () => {
+ const handleToggleCard = () => {
     setShowFirstCard(!showFirstCard);
-    setButtonText(showFirstCard ? '返回人力资源系统' : '查询勾选用户的明文信息');
+    setButtonText(showFirstCard ? 'Return to HR System' : 'Query Selected Users\' Plaintext Info');
   };
 
   // 处理查询
@@ -70,9 +69,9 @@ useEffect(() => {
     
   };
 
-  const columns = [
+   const columns = [
     {
-      title: '姓名',
+      title: 'Name',
       dataIndex: 'name',
       key: 'name',
     },
@@ -80,32 +79,32 @@ useEffect(() => {
 
   const columns2 = [
     {
-      title: '姓名',
+      title: 'Name',
       dataIndex: 'name',
       key: 'name',
     },
     {
-      title: '手机号',
+      title: 'Phone',
       dataIndex: 'phone',
       key: 'phone',
     },
     {
-      title: '身份证号',
+      title: 'ID Number',
       dataIndex: 'id',
       key: 'id',
     },
     {
-      title: '地址',
+      title: 'Address',
       dataIndex: 'address',
       key: 'address',
     },
     {
-      title: '职位',
+      title: 'Position',
       dataIndex: 'position',
       key: 'position',
     },
     {
-      title: '备注',
+      title: 'Remarks',
       dataIndex: 'descr',
       key: 'descr',
     },
@@ -125,11 +124,11 @@ useEffect(() => {
 
   return (
     <Layout>
-      <Header style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+       <Header style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
         <Search
-              placeholder="输入姓名查询"
+              placeholder="Search by Name"
               onSearch={handleSearch}
-              style={{ width: 200, marginBottom: 0 ,marginRight:'650px'}}
+              style={{ width: 200, marginBottom: 0 ,marginRight:'600px'}}
 
             />
         <Button type="primary" onClick={handleToggleCard}>
@@ -148,20 +147,20 @@ useEffect(() => {
               style={{ border: '1px solid black',  backgroundColor: '#ffffffff'}}
                pagination={{ 
     pageSize: 8, 
-    showTotal: (total) => `共 ${total} 条记录`
+    showTotal: (total) => `Total ${total} records`
   }}
             />
           </Card>
         ) : (
            <Header style={{ height: '650px', overflow: 'auto' }}> 
-            <Card title="保险公司看到的用户信息" style={{ width: '100%', maxWidth: '100%', marginTop: '30px' }}>
+             <Card title="User Information for Insurance Company" style={{ width: '100%', maxWidth: '100%', marginTop: '30px' }}>
             {/* <p>勾选的姓名：{selectedNames.join(', ')}</p> */}
             <Table
   columns={columns2}
   dataSource={tableData2}
   pagination={{ 
     pageSize: 5, 
-    showTotal: (total) => `共 ${total} 条记录`
+    showTotal: (total) => `Total ${total} records`
   }}
 />
           </Card>
@@ -169,13 +168,13 @@ useEffect(() => {
         )}
       </Content>
       {/* 弹窗组件 */}
-      <Modal
-        title="脱敏查询"
+       <Modal
+        title="Masking Query"
         open={isModalVisible}
         onOk={() => setIsModalVisible(false)}
         onCancel={() => setIsModalVisible(false)}
       >
-        <p>数据库中的脱敏数据通过脱敏服务的查询接口恢复成明文，提供给保险公司<br/>保险公司拿到用户的完整的真实的信息才能够办理业务</p>
+        <p>Masked data in the database is restored to plaintext through the masking service's query interface and provided to the insurance company.<br/>The insurance company needs the user's complete and真实的 information to process business.</p>
       </Modal>
     </Layout>
   );
