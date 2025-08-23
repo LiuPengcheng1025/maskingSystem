@@ -1,1 +1,0 @@
-{"version":3,"file":"static/css/main.1387ff68.css","mappings":"AAAA,cACE,oBAAqB,CACrB,6BAA+B,CAC/B,SACF","sources":["pages/index/index.css"],"sourcesContent":[".card-hovered {\r\n  transform: scale(1.1); /* 放大到 1.1 倍 */\r\n  transition: transform 0.3s ease; /* 添加过渡动画 */\r\n  z-index: 1; /* 确保卡片在放大时显示在其他元素之上 */\r\n}"],"names":[],"sourceRoot":""}
