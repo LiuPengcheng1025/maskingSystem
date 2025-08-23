@@ -5,12 +5,25 @@ import arrowhead from '../../components/background/Arrowhead.png';
 import arrowhead2 from '../../components/background/Arrowhead2.png';
 import { userInfoAdd ,getInfoEntryList } from './service.ts';
 import { useEffect } from 'react';
+import { ConfigProvider } from 'antd';
+import { createStyles } from 'antd-style';
 
 import './index.css';
 
 const Login = () => {
   const { Option } = Select;
   const [loading, setLoading] = useState(false);
+  // 添加渐变按钮样式
+  const useStyle = createStyles(({ prefixCls, css }) => ({
+    linearGradientButton: css`
+      &.${prefixCls}-btn-primary:not([disabled]):not(.${prefixCls}-btn-dangerous) {
+        > span { position: relative; }
+        &::before { content: ''; background: linear-gradient(135deg, #6253e1, #04befe); position: absolute; inset: -1px; opacity: 1; transition: all .3s; border-radius: inherit; }
+        &:hover::before { opacity: 0; }
+      }
+    `,
+  }));
+  const { styles } = useStyle();
 
   // 创建表单引用
   const formRef = useRef(null);
@@ -116,7 +129,7 @@ const onFinish = async (values) => {
 
   // 使用 useState 管理卡片的图片路径和文字内容
   const [cardImage, setCardImage] = useState(arrowhead);
-  const [cardText, setCardText] = useState('Click to go to Application Database');
+  const [cardText, setCardText] = useState('go to Application Database');
 
   // 使用 useState 管理页面标题
   const [pageTitle, setPageTitle] = useState('Employee Information Entry System');
@@ -135,7 +148,7 @@ const onFinish = async (values) => {
       setPageTitle('Employee Database');
     } else {
       setCardImage(arrowhead);
-      setCardText('Click to go to Application Database');
+      setCardText('go to Application Database');
       // 切换回原标题
       setPageTitle('Employee Information Entry System');
     }
@@ -177,16 +190,61 @@ const onFinish = async (values) => {
   return (
     <>
       {/* 添加标题 */}
-      <Row justify="center" >
-        <Col>
-          <h1 style={{ fontSize: 32, textAlign: 'center' }}>{pageTitle}</h1>
-        </Col>
-      </Row>
-      <Row gutter={[16, 16]} style={{ padding: '50px' }}>
+      <Row gutter={16}>
+  
+  <Col span={14}>
+    {/* <h1 style={{ fontSize: 32, textAlign: 'left' }}>{pageTitle}</h1> */}
+    <div style={{ fontSize: '32px', fontWeight: '600',background: 'linear-gradient(90deg, #1890ff 0%, #040404ff 100%)', WebkitBackgroundClip: 'text', color: 'transparent' }}>{pageTitle}</div>
+  </Col>
+  <Col span={5}>
+    <ConfigProvider button={{ className: styles.linearGradientButton }}>
+      <Button type="primary" size="large"
+          variant={false}
+          onClick={handleSecondCardClick} 
+          // 绑定鼠标进入和离开事件
+          onMouseEnter={handleCardMouseEnter}
+          onMouseLeave={handleCardMouseLeave}
+          // 根据状态添加类名
+          className={isCardHovered ? 'card-hovered' : ''} 
+          style={{
+            width: '225px',
+          }}
+      >
+        {cardText}
+      </Button>
+      
+    </ConfigProvider>
+   
+  </Col>
+  <Col span={5}>
+    <a href="http://localhost:8181/inspect?name=admin&password=123456" target="_blank"
+           style={{ 
+             display: 'inline-block', 
+             width: '225px', 
+             height: '40px', 
+             backgroundColor: 'black', 
+             color: 'white', 
+             textDecoration: 'none',
+             transition: 'transform 0.3s ease',
+             transformOrigin: 'center',
+             borderRadius: 10,
+
+           }} rel="noreferrer"
+           onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
+           onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+        >
+          <p style={{ textAlign: 'center', lineHeight: '40px', margin: 0, height: '40px', flexDirection: 'column', justifyContent: 'center' }}>go to Masking Server Database</p>
+        </a>
+  </Col>
+
+
+ 
+</Row>
+      <Row gutter={[16, 16]} style={{ padding: '50px' }} justify="center">
         {/* 根据状态决定是否显示第一个卡片 */}
         {showFirstCard && (
-          <Col span={18}>
-            <Card title="Add Employee Information">
+          <Col xs={24} sm={20} md={16} lg={12} xl={10} style={{ margin: '0 auto' }}>
+            <Card title="Add Employee Information" style={{ boxShadow: '0 8px   24px rgba(0, 0, 0, 0.08)', borderRadius: '12px', overflow: 'hidden' }} hoverable>
             {/* 将表单引用绑定到 Form 组件 */}
             <Form
               ref={formRef}
@@ -249,8 +307,8 @@ const onFinish = async (values) => {
           </Card>
           </Col>
         )}
-        <Col span={3}>
-       <Card 
+        
+       {/* <Card 
           style={{ marginTop: 50, width: "150px", backgroundColor: '#00CED1', height: '100px' }} 
 
           variant={false}
@@ -281,7 +339,7 @@ const onFinish = async (values) => {
            onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
         >
           <p style={{ textAlign: 'center', lineHeight: '25px', margin: 0, height: '100px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>Click to go to<br/>Masking Server Database</p>
-        </a>
+        </a> */}
         <Modal 
           title="Introduction to Distributed Masking" 
           open={isModalVisible} 
@@ -301,9 +359,9 @@ const onFinish = async (values) => {
         >
           <p>User information has been confirmed and submitted!<br/>This employee information will be stored in the database after masking</p>
         </Modal>
-        </Col>
+        
         {!showFirstCard && (
-        <Col span={20} style={{ marginLeft: 'auto' }}>
+        <Col span={24} style={{ marginLeft: 'auto' }}>
           <Card title="Database">
             {/* 绑定点击事件 */}
             {/* <Button type="primary" style={{ marginRight: 16 }} onClick={refreshData}>Update Database</Button> */}

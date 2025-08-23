@@ -1,5 +1,5 @@
-import logo1 from '../../components/background/1.png';
-import logo2 from '../../components/background/2.png';
+import logo1 from '../../components/background/c.png';
+import logo2 from '../../components/background/d.png';
 import logo3 from '../../components/background/3.png';
 import logo4 from '../../components/background/4.png';
 import logo5 from '../../components/background/5.png';

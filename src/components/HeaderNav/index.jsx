@@ -1,55 +1,56 @@
+import { useState } from 'react';
+import { useNavigate, Route, Routes } from 'react-router-dom';
 import {
   GithubFilled,
   InfoCircleFilled,
   QuestionCircleFilled,
 } from '@ant-design/icons';
-import { Route, Routes } from "react-router-dom";
 import { PageContainer, ProCard, ProLayout } from '@ant-design/pro-components';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // 引入 useNavigate 钩子
 import defaultProps from './_defaultProps.js';
 import Index from '../../pages/index/index.jsx';
 import BuyInsurancePage from '../../pages/buyInsurance/index.jsx';
-import logoImg from '../background/logo2.png';
-// eslint-disable-next-line import/no-anonymous-default-export
-export default () => {
-  const [collapsed, setCollapsed] = useState(true); // 默认折叠
-  const navigate = useNavigate();  // 使用 useNavigate 钩子
+import logoImg from '../background/f.png';
+import { useLocation } from 'react-router-dom';
+
+/**
+ * HeaderNav 组件 - 应用的头部导航组件
+ * 包含侧边栏菜单、用户信息和路由管理
+ */
+const HeaderNav = () => {
+  const [collapsed, setCollapsed] = useState(true);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const currentPath = location.pathname;
 
   return (
     <div
       id="test-pro-layout"
       style={{
-        height: '100vh',
+        height: '100vh', // 占满整个视口高度
       }}
     >
       <ProLayout
-        siderWidth={200}
-        // 只在侧边栏右上角显示标题
+        siderWidth={250}
         logo={
           <div>
-            <img src={logoImg} alt="logo" style={{ width: '50px', height: 'auto' }} />
-            {/* <span style={{ color: 'white', fontSize: '24px', marginLeft: '10px' }}>人力资源</span> */}
+            <img src={logoImg} alt="logo" style={{ width: '60px', height: 'auto' }} />
           </div>
         }
-        // 调整标题的字体大小和颜色
-        title={<span style={{ color: 'white', fontSize: '24px' }}>Human resources</span>}
+        title={<span style={{ color: 'white', fontSize: '20px' ,marginTop:-10}}>Human Resources</span>}
         bgLayoutImgList={[
           {
-            //src: 'https://bpic.588ku.com/back_pic/06/11/81/36621f8dff125ae.jpg',  // 设置背景图URL
             left: 0,
             top: 0,
-            width: '100vw',  // 设置宽度为视口宽度
-            height: '100vh',  // 设置高度为视口高度
-            background: 'rgba(0, 0, 0, 0.3)',  // 设置透明度
-            backgroundColor: 'rgb(0, 21, 44)',
+            width: '100vw',
+            height: '100vh',
+            background: 'linear-gradient(135deg, #0f1748 0%, #6377deff 100%)',
+            backgroundColor: '#0f1748', // 回退颜色
           },
         ]}
         {...defaultProps}
         avatarProps={{
-          // src: '../background/logo.jpg',
-          title: <span style={{ color: 'white' }}>User name</span>,
-          size: 'large',
+          title: <span style={{ color: 'white' }}>admin</span>,
+          size: 'small',
         }}
         actionsRender={(props) => {
           if (props.isMobile) return [];
@@ -61,8 +62,19 @@ export default () => {
         }}
         menuItemRender={(item, dom) => (
           <div
+            style={{
+              color: currentPath === item.path ? '#40a9ff' : '#a0a0a0',
+              backgroundColor: currentPath === item.path ? 'rgba(255, 255, 255, 0.2)' : 'transparent',
+              fontWeight: currentPath === item.path ? 'bold' : 'normal',
+              padding: '8px 20px',
+              borderRadius: '4px',
+              borderLeft: currentPath === item.path ? '4px solid #40a9ff' : 'none',
+              textShadow: currentPath === item.path ? '0 0 2px rgba(64, 169, 255, 0.5)' : 'none',
+              transition: 'all 0.1s ease',
+              whiteSpace: 'nowrap',
+              width: '200px',
+            }}
             onClick={() => {
-              // 使用 navigate 来改变路由
               navigate(item.path || '/1');
             }}
           >
@@ -70,19 +82,18 @@ export default () => {
           </div>
         )}
         collapsed={collapsed}
-        onCollapse={setCollapsed} // 控制折叠状态
+        onCollapse={setCollapsed}
       >
         <PageContainer>
           <ProCard
             style={{
-              height: '100vh',
-              minHeight: 800,
+              height: '100vh', // 占满整个视口高度
+              minHeight: 800, // 设置最小高度
             }}
           >
             <Routes>
               <Route path="/1" element={<Index />} />
               <Route path="/2" element={<BuyInsurancePage />} />
-              {/* 可以在这里添加更多路由 */}
             </Routes>
           </ProCard>
         </PageContainer>
@@ -90,3 +101,5 @@ export default () => {
     </div>
   );
 };
+
+export default HeaderNav;

@@ -123,48 +123,56 @@ useEffect(() => {
   }, [showFirstCard]);
 
   return (
-    <Layout>
-       <Header style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+    <Layout style={{ minHeight: '100vh', backgroundColor: '#f5f5f5' }}>
+       <Header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'white', boxShadow: '0 2px 12px rgba(0, 0, 0, 0.08)', padding: '0 32px', height: '64px' }}>
+         <div style={{ fontSize: '27px', fontWeight: '600', background: 'linear-gradient(90deg, #1890ff 0%, #040404ff 100%)', WebkitBackgroundClip: 'text', color: 'transparent' }}>employee information</div>
         <Search
               placeholder="Search by Name"
               onSearch={handleSearch}
-              style={{ width: 200, marginBottom: 0 ,marginRight:'600px'}}
-
+              style={{ width: 280, marginBottom: 0 }}
             />
-        <Button type="primary" onClick={handleToggleCard}>
+        <Button type="primary" onClick={handleToggleCard} style={{ borderRadius: '4px', transition: 'all 0.3s ease', padding: '0 24px', height: '40px', fontSize: '14px' }}>
           {buttonText}
         </Button>
       </Header>
-      <Content style={{ padding: '24px' }}>
+      <Content style={{ padding: '24px', marginTop: '20px' }}>
         {showFirstCard ? (
-          <Card style={{ width: '100%', backgroundColor: 'rgb(0, 21, 41)' }}>
+          <Card style={{ width: '100%', backgroundColor: 'white', borderRadius: '8px', boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)', border: 'none', overflow: 'hidden', transition: 'all 0.3s ease', marginBottom: '24px' }}>
+            <div style={{ padding: '16px 24px', borderBottom: '1px solid #f0f0f0', fontSize: '16px', fontWeight: '500' }}>Employee List</div>
             <Table
               rowSelection={rowSelection}
               columns={columns}
               dataSource={tableData}
               rowKey="id"
-              bordered
-              style={{ border: '1px solid black',  backgroundColor: '#ffffffff'}}
-               pagination={{ 
-    pageSize: 8, 
-    showTotal: (total) => `Total ${total} records`
-  }}
+              bordered={false}
+              pagination={{ 
+                pageSize: 8, 
+                showTotal: (total) => `Total ${total} records`,
+                style: { padding: '16px 24px', borderTop: '1px solid #f0f0f0' }
+              }}
+              rowClassName={() => 'hover:bg-f5f5f5 transition-colors duration-200'}
+              style={{ padding: '0 24px' }}
+              size="middle"
             />
           </Card>
         ) : (
-           <Header style={{ height: '650px', overflow: 'auto' }}> 
-             <Card title="User Information for Insurance Company" style={{ width: '100%', maxWidth: '100%', marginTop: '30px' }}>
-            {/* <p>勾选的姓名：{selectedNames.join(', ')}</p> */}
+            
+             <Card title="User Information for Insurance Company" style={{ width: '100%', maxWidth: '100%', marginTop: '0', borderRadius: '8px', border: 'none', boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)', overflow: 'hidden', transition: 'all 0.3s ease', marginBottom: '24px' }}>
+            {/* <p>勾选的姓名{selectedNames.join(', ')}</p> */}
             <Table
   columns={columns2}
   dataSource={tableData2}
   pagination={{ 
     pageSize: 5, 
-    showTotal: (total) => `Total ${total} records`
+    showTotal: (total) => `Total ${total} records`,
+    style: { padding: '16px 24px', borderTop: '1px solid #f0f0f0' }
   }}
+  bordered={false}
+  rowClassName={() => 'hover:bg-f5f5f5 transition-colors duration-200'}
+  size="middle"
 />
           </Card>
-          </Header>
+          
         )}
       </Content>
       {/* 弹窗组件 */}
@@ -173,8 +181,12 @@ useEffect(() => {
         open={isModalVisible}
         onOk={() => setIsModalVisible(false)}
         onCancel={() => setIsModalVisible(false)}
+        style={{ borderRadius: '8px' }}
+        maskStyle={{ backgroundColor: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(2px)' }}
+        okButtonProps={{ style: { backgroundColor: '#1890ff', borderColor: '#1890ff', transition: 'all 0.3s ease' } }}
+        cancelButtonProps={{ style: { transition: 'all 0.3s ease' } }}
       >
-        <p>Masked data in the database is restored to plaintext through the masking service's query interface and provided to the insurance company.<br/>The insurance company needs the user's complete and真实的 information to process business.</p>
+        <p style={{ lineHeight: '1.6', color: 'rgba(0, 0, 0, 0.85)' }}>Masked data in the database is restored to plaintext through masking service's query interface and provided to the insurance company.<br/>The insurance company needs the user's complete and authentic information to process business.</p>
       </Modal>
     </Layout>
   );
