@@ -216,26 +216,66 @@ const onFinish = async (values) => {
     </ConfigProvider>
    
   </Col>
-  <Col span={5}>
-    <a href="http://localhost:8181/inspect?name=admin&password=123456" target="_blank"
-           style={{ 
-             display: 'inline-block', 
-             width: '225px', 
-             height: '40px', 
-             backgroundColor: 'black', 
-             color: 'white', 
+   <Col span={5}>
+    <a href="https://b6786378dfc4.ngrok-free.app/inspect?username=admin&password=123456" target="_blank"
+           style={{
+             display: 'inline-block',
+             width: '270px',
+             height: '40px',
+             backgroundColor: 'black',
+             color: 'white',
              textDecoration: 'none',
              transition: 'transform 0.3s ease',
              transformOrigin: 'center',
              borderRadius: 10,
+             marginBottom: '10px'  // 添加下边距
 
            }} rel="noreferrer"
            onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
            onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
         >
-          <p style={{ textAlign: 'center', lineHeight: '40px', margin: 0, height: '40px', flexDirection: 'column', justifyContent: 'center' }}>go to Masking Server Database</p>
+          <p style={{ textAlign: 'center', lineHeight: '40px', margin: 0, height: '40px', flexDirection: 'column', justifyContent: 'center' }}>Phone Number Masking Server Database</p>
+        </a>
+        <a href="http://d6f1d662ede3.ngrok-free.app/inspect?username=admin&password=123456" target="_blank"
+           style={{
+             display: 'inline-block',
+             width: '225px',
+             height: '40px',
+             backgroundColor: 'black',
+             color: 'white',
+             textDecoration: 'none',
+             transition: 'transform 0.3s ease',
+             transformOrigin: 'center',
+             borderRadius: 10,
+             marginBottom: '10px'  // 添加下边距
+
+           }} rel="noreferrer"
+           onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
+           onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+        >
+          <p style={{ textAlign: 'center', lineHeight: '40px', margin: 0, height: '40px', flexDirection: 'column', justifyContent: 'center' }}>ID Card Masking Server Database</p>
+        </a>
+        <a href=" http://57283e72ea00.ngrok-free.app/inspect?username=admin&password=123456" target="_blank"
+           style={{
+             display: 'inline-block',
+             width: '225px',
+             height: '40px',
+             backgroundColor: 'black',
+             color: 'white',
+             textDecoration: 'none',
+             transition: 'transform 0.3s ease',
+             transformOrigin: 'center',
+             borderRadius: 10,
+             marginBottom: '10px'  // 添加下边距
+
+           }} rel="noreferrer"
+           onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
+           onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+        >
+          <p style={{ textAlign: 'center', lineHeight: '40px', margin: 0, height: '40px', flexDirection: 'column', justifyContent: 'center' }}>Address Masking Server Database</p>
         </a>
   </Col>
+
 
 
  
@@ -322,7 +362,7 @@ const onFinish = async (values) => {
          
           <p style={{ textAlign: 'center', marginTop: 0 }} dangerouslySetInnerHTML={{ __html: cardText }} />
         </Card>
-         <a href="http://localhost:8181/inspect?name=admin&password=123456" target="_blank"
+         <a href="https://d6f1d662ede3.ngrok-free.app/inspect?username=admin&password=123456" target="_blank"
            style={{ 
              display: 'inline-block', 
              width: '150px', 
