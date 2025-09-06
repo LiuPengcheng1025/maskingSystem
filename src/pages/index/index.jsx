@@ -187,12 +187,35 @@ const onFinish = async (values) => {
     fetchTableData();
   }, [currentPage, pageSize]);
 
+  // 添加状态管理选择的值
+  // 将空字符串改为null，这样placeholder才能正常显示
+  const [selectedWebsite, setSelectedWebsite] = useState(null);
+  
+  // 处理网站选择变化的函数
+  // 处理网站选择变化的函数
+  const handleWebsiteChange = (value) => {
+  // 不再更新selectedWebsite状态，这样placeholder会一直显示
+  // 根据选择的值打开相应的网站
+  switch (value) {
+    case 'website1':
+      window.open('https://b6786378dfc4.ngrok-free.app/inspect?username=admin&password=123456', '_blank');
+      break;
+    case 'website2':
+      window.open('http://d6f1d662ede3.ngrok-free.app/inspect?username=admin&password=123456', '_blank');
+      break;
+    case 'website3':
+      window.open('http://57283e72ea00.ngrok-free.app/inspect?username=admin&password=123456', '_blank');
+      break;
+    default:
+      break;
+  }
+};
   return (
     <>
       {/* 添加标题 */}
       <Row gutter={16}>
   
-  <Col span={14}>
+  <Col span={12}>
     {/* <h1 style={{ fontSize: 32, textAlign: 'left' }}>{pageTitle}</h1> */}
     <div style={{ fontSize: '32px', fontWeight: '600',background: 'linear-gradient(90deg, #1890ff 0%, #040404ff 100%)', WebkitBackgroundClip: 'text', color: 'transparent' }}>{pageTitle}</div>
   </Col>
@@ -217,68 +240,20 @@ const onFinish = async (values) => {
    
   </Col>
    <Col span={5}>
-    <a href="https://b6786378dfc4.ngrok-free.app/inspect?username=admin&password=123456" target="_blank"
-           style={{
-             display: 'inline-block',
-             width: '270px',
-             height: '40px',
-             backgroundColor: 'black',
-             color: 'white',
-             textDecoration: 'none',
-             transition: 'transform 0.3s ease',
-             transformOrigin: 'center',
-             borderRadius: 10,
-             marginBottom: '10px'  // 添加下边距
+          {/* 替换简单按钮为Select组件 */}
+         <Select
+  placeholder="Select masked database to access"
+  style={{ width: 350 }} // 增加宽度以完全显示文字
+  value={selectedWebsite}
+  onChange={handleWebsiteChange}
+  allowClear
+>
+  <Option value="website1">Phone Number desensitization Database</Option>
+  <Option value="website2">ID Card desensitization Database</Option>
+  <Option value="website3">Address desensitization Database</Option>
+</Select>
+        </Col>
 
-           }} rel="noreferrer"
-           onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
-           onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
-        >
-          <p style={{ textAlign: 'center', lineHeight: '40px', margin: 0, height: '40px', flexDirection: 'column', justifyContent: 'center' }}>Phone Number Masking Server Database</p>
-        </a>
-        <a href="http://d6f1d662ede3.ngrok-free.app/inspect?username=admin&password=123456" target="_blank"
-           style={{
-             display: 'inline-block',
-             width: '225px',
-             height: '40px',
-             backgroundColor: 'black',
-             color: 'white',
-             textDecoration: 'none',
-             transition: 'transform 0.3s ease',
-             transformOrigin: 'center',
-             borderRadius: 10,
-             marginBottom: '10px'  // 添加下边距
-
-           }} rel="noreferrer"
-           onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
-           onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
-        >
-          <p style={{ textAlign: 'center', lineHeight: '40px', margin: 0, height: '40px', flexDirection: 'column', justifyContent: 'center' }}>ID Card Masking Server Database</p>
-        </a>
-        <a href=" http://57283e72ea00.ngrok-free.app/inspect?username=admin&password=123456" target="_blank"
-           style={{
-             display: 'inline-block',
-             width: '225px',
-             height: '40px',
-             backgroundColor: 'black',
-             color: 'white',
-             textDecoration: 'none',
-             transition: 'transform 0.3s ease',
-             transformOrigin: 'center',
-             borderRadius: 10,
-             marginBottom: '10px'  // 添加下边距
-
-           }} rel="noreferrer"
-           onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
-           onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
-        >
-          <p style={{ textAlign: 'center', lineHeight: '40px', margin: 0, height: '40px', flexDirection: 'column', justifyContent: 'center' }}>Address Masking Server Database</p>
-        </a>
-  </Col>
-
-
-
- 
 </Row>
       <Row gutter={[16, 16]} style={{ padding: '50px' }} justify="center">
         {/* 根据状态决定是否显示第一个卡片 */}
@@ -387,7 +362,7 @@ const onFinish = async (values) => {
           onCancel={handleCancel}
           centered 
         >
-          <p>Introduction to distributed masking process......</p>
+          <p>Authorized external applications split sensitive information into several independent fields and send the sensitive fields to the corresponding desensitization service nodes respectively. Each desensitization service node is independently set up and does not have any data interaction with each other. The desensitization service nodes generate a local unique and irreversible mask identifier MID based on the plaintext data of the received fields using an autoincrement algorithm It also stores the mapping relationship between MID and plaintext data, and returns the MID to the external application. The application database of the external system does not store any plaintext data of sensitive fields, and all administrators have no right to access the complete data set of each desensitized service node.</p>
         </Modal>
         {/* 新增提交成功后的弹窗 */}
         <Modal 
@@ -402,7 +377,7 @@ const onFinish = async (values) => {
         
         {!showFirstCard && (
         <Col span={24} style={{ marginLeft: 'auto' }}>
-          <Card title="Database">
+          <Card title="Database" style={{marginTop:"50px"}}>
             {/* 绑定点击事件 */}
             {/* <Button type="primary" style={{ marginRight: 16 }} onClick={refreshData}>Update Database</Button> */}
             {/* 自定义分页配置的表格 */}
