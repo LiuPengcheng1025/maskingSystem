@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, Route, Routes } from 'react-router-dom';
+import { useNavigate, Route, Routes ,Navigate } from 'react-router-dom';
 import {
   GithubFilled,
   InfoCircleFilled,
@@ -91,6 +91,7 @@ const HeaderNav = () => {
             }}
           >
             <Routes>
+              <Route path="/" element={<Navigate to="/1" replace />} />
               <Route path="/1" element={<Index />} />
               <Route path="/2" element={<BuyInsurancePage />} />
             </Routes>
