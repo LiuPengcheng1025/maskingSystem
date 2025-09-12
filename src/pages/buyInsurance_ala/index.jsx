@@ -8,7 +8,7 @@ const BuyInsurancePage = () => {
   // 用于控制显示哪个 Card 的状态
   const [showFirstCard, setShowFirstCard] = useState(true);
   // 用于控制按钮显示的文本
-  const [buttonText, setButtonText] = useState('Query Selected Users\' Plaintext Info');
+  const [buttonText, setButtonText] = useState('استعلام معلومات المستخدمين المختارين النصية');
   // 模拟表格数据
   const [tableData, setTableData] = useState([
   ]);
@@ -45,7 +45,7 @@ useEffect(() => {
   // 切换显示 Card 和按钮文本的函数
  const handleToggleCard = () => {
     setShowFirstCard(!showFirstCard);
-    setButtonText(showFirstCard ? 'Return to HR System' : 'Query Selected Users\' Plaintext Info');
+    setButtonText(showFirstCard ? 'العودة إلى نظام الموارد البشرية' : 'استعلام معلومات المستخدمين المختارين النصية');
   };
 
   // 处理查询
@@ -64,14 +64,15 @@ useEffect(() => {
     setSelectedNames(selected);
     console.log('selected:',selected);
     const res = await getInsuranceList({aids:selected});
-    console.log(res.data)
-    setTableData2(res.data.data);
-    
+    console.log('res data:', res.data);
+    // 确保tableData2是一个数组
+    setTableData2(Array.isArray(res.data) ? res.data : (res.data?.data || []));
   };
+
 
    const columns = [
     {
-      title: 'Name',
+      title: 'الاسم',
       dataIndex: 'name',
       key: 'name',
     },
@@ -79,32 +80,32 @@ useEffect(() => {
 
   const columns2 = [
     {
-      title: 'Name',
+      title: 'الاسم',
       dataIndex: 'name',
       key: 'name',
     },
     {
-      title: 'Phone',
+      title: 'الهاتف',
       dataIndex: 'phone',
       key: 'phone',
     },
     {
-      title: 'ID Number',
+      title: 'رقم الهوية',
       dataIndex: 'id',
       key: 'id',
     },
     {
-      title: 'Address',
+      title: 'العنوان',
       dataIndex: 'address',
       key: 'address',
     },
     {
-      title: 'Position',
+      title: 'المنصب',
       dataIndex: 'position',
       key: 'position',
     },
     {
-      title: 'Remarks',
+      title: 'الملاحظات',
       dataIndex: 'descr',
       key: 'descr',
     },
@@ -125,9 +126,9 @@ useEffect(() => {
   return (
     <Layout style={{ minHeight: '100vh', backgroundColor: '#f5f5f5' }}>
        <Header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'white', boxShadow: '0 2px 12px rgba(0, 0, 0, 0.08)', padding: '0 32px', height: '64px' }}>
-         <div style={{ fontSize: '27px', fontWeight: '600', background: 'linear-gradient(90deg, #1890ff 0%, #040404ff 100%)', WebkitBackgroundClip: 'text', color: 'transparent' }}>employee information</div>
+         <div style={{ fontSize: '27px', fontWeight: '600', background: 'linear-gradient(90deg, #1890ff 0%, #040404ff 100%)', WebkitBackgroundClip: 'text', color: 'transparent' }}>معلومات الموظفين</div>
         <Search
-              placeholder="Search by Name"
+              placeholder="البحث حسب الاسم"
               onSearch={handleSearch}
               style={{ width: 280, marginBottom: 0 }}
             />
@@ -138,7 +139,7 @@ useEffect(() => {
       <Content style={{ padding: '24px', marginTop: '20px' }}>
         {showFirstCard ? (
           <Card style={{ width: '100%', backgroundColor: 'white', borderRadius: '8px', boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)', border: 'none', overflow: 'hidden', transition: 'all 0.3s ease', marginBottom: '24px' }}>
-            <div style={{ padding: '16px 24px', borderBottom: '1px solid #f0f0f0', fontSize: '16px', fontWeight: '500' }}>Employee List</div>
+            <div style={{ padding: '16px 24px', borderBottom: '1px solid #f0f0f0', fontSize: '16px', fontWeight: '500' }}>قائمة الموظفين</div>
             <Table
               rowSelection={rowSelection}
               columns={columns}
@@ -147,7 +148,7 @@ useEffect(() => {
               bordered={false}
               pagination={{ 
                 pageSize: 8, 
-                showTotal: (total) => `Total ${total} records`,
+                showTotal: (total) => `إجمالي ${total} سجل`,
                 style: { padding: '16px 24px', borderTop: '1px solid #f0f0f0' }
               }}
               rowClassName={() => 'hover:bg-f5f5f5 transition-colors duration-200'}
@@ -157,14 +158,14 @@ useEffect(() => {
           </Card>
         ) : (
             
-             <Card title="User Information for Insurance Company" style={{ width: '100%', maxWidth: '100%', marginTop: '0', borderRadius: '8px', border: 'none', boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)', overflow: 'hidden', transition: 'all 0.3s ease', marginBottom: '24px' }}>
+             <Card title="معلومات المستخدمين لشركة التأمين" style={{ width: '100%', maxWidth: '100%', marginTop: '0', borderRadius: '8px', border: 'none', boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)', overflow: 'hidden', transition: 'all 0.3s ease', marginBottom: '24px' }}>
             {/* <p>勾选的姓名{selectedNames.join(', ')}</p> */}
             <Table
   columns={columns2}
   dataSource={tableData2}
   pagination={{ 
     pageSize: 5, 
-    showTotal: (total) => `Total ${total} records`,
+    showTotal: (total) => `إجمالي ${total} سجل`,
     style: { padding: '16px 24px', borderTop: '1px solid #f0f0f0' }
   }}
   bordered={false}
@@ -177,7 +178,7 @@ useEffect(() => {
       </Content>
       {/* 弹窗组件 */}
        <Modal
-        title="Masking Query"
+        title="استعلام التعمية"
         open={isModalVisible}
         onOk={() => setIsModalVisible(false)}
         onCancel={() => setIsModalVisible(false)}
@@ -186,7 +187,7 @@ useEffect(() => {
         okButtonProps={{ style: { backgroundColor: '#1890ff', borderColor: '#1890ff', transition: 'all 0.3s ease' } }}
         cancelButtonProps={{ style: { transition: 'all 0.3s ease' } }}
       >
-        <p style={{ lineHeight: '1.6', color: 'rgba(0, 0, 0, 0.85)' }}>Masked data in the database is restored to plaintext through masking service's query interface and provided to the insurance company.<br/>The insurance company needs the user's complete and authentic information to process business.</p>
+        <p style={{ lineHeight: '1.6', color: 'rgba(0, 0, 0, 0.85)' }}>يتم استعادة البيانات المموهة في قاعدة البيانات إلى نص عادي من خلال واجهة استعلام خدمة التعمية وتوفيرها للشركة التأمينية.<br/>تحتاج شركات التأمين إلى معلومات المستخدم الكاملة والمؤثلة لمعالجة العملية.</p>
       </Modal>
     </Layout>
   );

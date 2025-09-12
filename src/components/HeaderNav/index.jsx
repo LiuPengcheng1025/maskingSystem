@@ -7,8 +7,13 @@ import {
 } from '@ant-design/icons';
 import { PageContainer, ProCard, ProLayout } from '@ant-design/pro-components';
 import defaultProps from './_defaultProps.js';
-import Index from '../../pages/index/index.jsx';
-import BuyInsurancePage from '../../pages/buyInsurance/index.jsx';
+import Index_en from '../../pages/index_en/index.jsx';
+import Index_ch from '../../pages/index_ch/index.jsx';
+import Index_ala from '../../pages/index_ala/index.jsx';
+import BuyInsurancePage_en from '../../pages/buyInsurance_en/index.jsx';
+import BuyInsurancePage_ch from '../../pages/buyInsurance_ch/index.jsx';
+import BuyInsurancePage_ala from '../../pages/buyInsurance_ala/index.jsx';
+
 import logoImg from '../background/f.png';
 import { useLocation } from 'react-router-dom';
 
@@ -30,7 +35,7 @@ const HeaderNav = () => {
       }}
     >
       <ProLayout
-        siderWidth={250}
+        siderWidth={200}
         logo={
           <div>
             <img src={logoImg} alt="logo" style={{ width: '60px', height: 'auto' }} />
@@ -72,7 +77,7 @@ const HeaderNav = () => {
               textShadow: currentPath === item.path ? '0 0 2px rgba(64, 169, 255, 0.5)' : 'none',
               transition: 'all 0.1s ease',
               whiteSpace: 'nowrap',
-              width: '200px',
+              width: '160px',
             }}
             onClick={() => {
               navigate(item.path || '/1');
@@ -91,9 +96,13 @@ const HeaderNav = () => {
             }}
           >
             <Routes>
-              <Route path="/" element={<Navigate to="/1" replace />} />
-              <Route path="/1" element={<Index />} />
-              <Route path="/2" element={<BuyInsurancePage />} />
+              <Route path="/" element={<Navigate to="/Information_Entry" replace />} />
+              <Route path="/Information_Entry_en" element={<Index_en />} />
+              <Route path="/Information_Query_en" element={<BuyInsurancePage_en />} />
+              <Route path="/Information_Entry_ch" element={<Index_ch />} />
+              <Route path="/Information_Query_ch" element={<BuyInsurancePage_ch />} />
+              <Route path="/Information_Entry_ala" element={<Index_ala />} />
+              <Route path="/Information_Query_ala" element={<BuyInsurancePage_ala />} />
             </Routes>
           </ProCard>
         </PageContainer>

@@ -10,14 +10,34 @@ export default {
     path: '/',
     routes: [
       {
-        path: '/1',
+        path: '/Information_Entry_en',
         name: <span style={{ color: 'white', }}>Information Entry</span>,
-        icon: <img src={logo1} style={{ width: '20px', height: '20px' }} alt="Information Entry" />, 
+        // icon: <img src={logo1} style={{ width: '20px', height: '20px' }} alt="Information Entry" />, 
       },
       {
-        path: '/2',
+        path: '/Information_Query_en',
         name: <span style={{ color: 'white', }}>Information Query</span>,
-        icon: <img src={logo2} style={{ width: '20px', height: '20px' }} alt="Information Query" />, 
+        // icon: <img src={logo2} style={{ width: '20px', height: '20px' }} alt="Information Query" />, 
+      },
+      {
+        path: '/Information_Entry_ch',
+        name: <span style={{ color: 'white', }}>信息录入</span>,
+        // icon: <img src={logo1} style={{ width: '20px', height: '20px' }} alt="信息录入" />, 
+      },
+      {
+        path: '/Information_Query_ch',
+        name: <span style={{ color: 'white', }}>信息查询</span>,
+        // icon: <img src={logo2} style={{ width: '20px', height: '20px' }} alt="信息查询" />, 
+      },
+      {
+        path: '/Information_Entry_ala',
+        name: <span style={{ color: 'white', }}>إدخال المعلومات</span>,
+        // icon: <img src={logo1} style={{ width: '20px', height: '20px' }} alt="إدخال المعلومات" />, 
+      },
+      {
+        path: '/Information_Query_ala',
+        name: <span style={{ color: 'white', }}>استعلام المعلومات</span>,
+        // icon: <img src={logo2} style={{ width: '20px', height: '20px' }} alt="استعلام المعلومات" />, 
       },
       // {
       //   path: '/3',

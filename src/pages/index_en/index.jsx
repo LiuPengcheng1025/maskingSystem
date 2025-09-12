@@ -146,6 +146,8 @@ const onFinish = async (values) => {
       setCardText('Return to Add Info');
       // 切换标题为员工数据库
       setPageTitle('Employee Database');
+      // 切换到数据库视图时重新获取数据
+      fetchTableData();
     } else {
       setCardImage(arrowhead);
       setCardText('go to Application Database');
@@ -164,15 +166,14 @@ const onFinish = async (values) => {
   const fetchTableData = async () => {
   try {
     const response = await getInfoEntryList({
-      page: currentPage,
+      current: currentPage,
       pageSize: pageSize
     });
     console.log(currentPage,pageSize,response);
-    // 确保dataSource始终是数组
-    const tableData = response.data.data;
-    setTotal(response.data.total);
-    // const tableData = Array.isArray(response.data) ? response.data : [];
-    console.log(tableData);
+    // 确保tableData始终是数组
+    const tableData = response && response.data && Array.isArray(response.data.data) ? response.data.data : [];
+    setTotal(response && response.data && typeof response.data.total === 'number' ? response.data.total : 0);
+    console.log("tableData:",tableData);
 
     setDataSource(tableData);
   } catch (error) {
@@ -198,13 +199,13 @@ const onFinish = async (values) => {
   // 根据选择的值打开相应的网站
   switch (value) {
     case 'website1':
-      window.open('https://b6786378dfc4.ngrok-free.app/inspect?username=admin&password=123456', '_blank');
+      window.open('https://46d35c013d33.ngrok-free.app/inspect?username=admin&password=123456', '_blank');
       break;
     case 'website2':
-      window.open('http://d6f1d662ede3.ngrok-free.app/inspect?username=admin&password=123456', '_blank');
+      window.open('https://9aafb966a954.ngrok-free.app/inspect?username=admin&password=123456', '_blank');
       break;
     case 'website3':
-      window.open('http://57283e72ea00.ngrok-free.app/inspect?username=admin&password=123456', '_blank');
+      window.open('https://b8363f9e5916.ngrok-free.app/inspect?username=admin&password=123456', '_blank');
       break;
     default:
       break;
@@ -230,7 +231,8 @@ const onFinish = async (values) => {
           // 根据状态添加类名
           className={isCardHovered ? 'card-hovered' : ''} 
           style={{
-            width: '225px',
+            width: '205px',
+            height: '30px',
           }}
       >
         {cardText}
@@ -243,7 +245,7 @@ const onFinish = async (values) => {
           {/* 替换简单按钮为Select组件 */}
          <Select
   placeholder="Select masked database to access"
-  style={{ width: 350 }} // 增加宽度以完全显示文字
+  style={{ width: 300 }} // 增加宽度以完全显示文字
   value={selectedWebsite}
   onChange={handleWebsiteChange}
   allowClear
