@@ -1,10 +1,9 @@
 // src/Login.js
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Form, Input, Button, message, Card, Row, Col , Select , Table  ,Space, Modal } from 'antd'; 
 import arrowhead from '../../components/background/Arrowhead.png';
 import arrowhead2 from '../../components/background/Arrowhead2.png';
 import { userInfoAdd ,getInfoEntryList } from './service.ts';
-import { useEffect } from 'react';
 import { ConfigProvider } from 'antd';
 import { createStyles } from 'antd-style';
 
@@ -27,6 +26,18 @@ const Login = () => {
 
   // 创建表单引用
   const formRef = useRef(null);
+  
+  // 添加新的状态管理语言选择提示弹窗
+  const [isLanguageModalVisible, setIsLanguageModalVisible] = useState(true);
+  
+  // 处理语言选择提示弹窗关闭的函数
+  const handleLanguageModalOk = () => {
+    setIsLanguageModalVisible(false);
+  };
+  
+  const handleLanguageModalCancel = () => {
+    setIsLanguageModalVisible(false);
+  };
 
   // 表单提交处理
 const onFinish = async (values) => {
@@ -375,6 +386,22 @@ const onFinish = async (values) => {
           centered 
         >
           <p>User information has been confirmed and submitted!<br/>This employee information will be stored in the database after masking</p>
+        </Modal>
+        
+        {/* 新增语言选择提示弹窗 */}
+        <Modal 
+          title="Language Selection Notice" 
+          open={isLanguageModalVisible} 
+          onOk={handleLanguageModalOk} 
+          onCancel={handleLanguageModalCancel}
+          centered 
+          okText="I understand"
+          cancelButtonProps={{ style: { display: 'none' } }} // 隐藏取消按钮
+        >
+          <p style={{ fontSize: '16px', textAlign: 'center' }}>每个业务都做了三种语言选择，除语言外无其他不同<br/>
+          Each business offers three language options, with no other differences apart from the language<br/>
+          كل عمل قام بتقديم ثلاثة خيارات للغة، ولا يوجد اختلاف آخر سوى اللغة.
+          </p>
         </Modal>
         
         {!showFirstCard && (
