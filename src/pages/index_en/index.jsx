@@ -401,7 +401,7 @@ const onFinish = async (values) => {
           <p style={{ fontSize: '16px', textAlign: 'left' }}>The system provides three language versions:<br/>
           &nbsp; • &nbsp;&nbsp;&nbsp;English: &nbsp;&nbsp; information Entry&nbsp;&nbsp;/ &nbsp;&nbsp;information Query<br/>
           &nbsp; • &nbsp;&nbsp;&nbsp;Chinese: &nbsp; 信息录入&nbsp;&nbsp; / &nbsp;&nbsp;信息查询<br/>
-          &nbsp; • &nbsp;&nbsp;&nbsp;Arabic:  &nbsp;&nbsp; &nbsp;إدخال المعلومات/&nbsp;&nbsp;استعلام المعلومات<br/>
+          &nbsp; • &nbsp;&nbsp;&nbsp;Arabic:  &nbsp;&nbsp; &nbsp;إدخال المعلومات&nbsp;&nbsp;/&nbsp;&nbsp;استعلام المعلومات<br/>
           All language versions have the same functionality; only the display language is different.
           </p>
         </Modal>
