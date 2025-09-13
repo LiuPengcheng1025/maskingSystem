@@ -390,7 +390,7 @@ const onFinish = async (values) => {
         
         {/* 新增语言选择提示弹窗 */}
         <Modal 
-          title="Language Selection Notice" 
+          title="Notice" 
           open={isLanguageModalVisible} 
           onOk={handleLanguageModalOk} 
           onCancel={handleLanguageModalCancel}
@@ -398,9 +398,11 @@ const onFinish = async (values) => {
           okText="I understand"
           cancelButtonProps={{ style: { display: 'none' } }} // 隐藏取消按钮
         >
-          <p style={{ fontSize: '16px', textAlign: 'center' }}>每个业务都做了三种语言选择，除语言外无其他不同<br/>
-          Each business offers three language options, with no other differences apart from the language<br/>
-          كل عمل قام بتقديم ثلاثة خيارات للغة، ولا يوجد اختلاف آخر سوى اللغة.
+          <p style={{ fontSize: '16px', textAlign: 'left' }}>The system provides three language versions:<br/>
+          &nbsp; • &nbsp;&nbsp;&nbsp;English: &nbsp;&nbsp; information Entry&nbsp;&nbsp;/ &nbsp;&nbsp;information Query<br/>
+          &nbsp; • &nbsp;&nbsp;&nbsp;Chinese: &nbsp; 信息录入&nbsp;&nbsp; / &nbsp;&nbsp;信息查询<br/>
+          &nbsp; • &nbsp;&nbsp;&nbsp;Arabic:  &nbsp;&nbsp; &nbsp;إدخال المعلومات/&nbsp;&nbsp;استعلام المعلومات<br/>
+          All language versions have the same functionality; only the display language is different.
           </p>
         </Modal>
         

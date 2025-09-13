@@ -96,7 +96,7 @@ const HeaderNav = () => {
             }}
           >
             <Routes>
-              <Route path="/" element={<Navigate to="/Information_Entry_en" replace />} />
+              <Route path="/maskingSystem" element={<Navigate to="/Information_Entry_en" replace />} />
               <Route path="/Information_Entry_en" element={<Index_en />} />
               <Route path="/Information_Query_en" element={<BuyInsurancePage_en />} />
               <Route path="/Information_Entry_ch" element={<Index_ch />} />
