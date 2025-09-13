@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/maskingSystem/static/css/main.8d5af97e.css",
-    "main.js": "/maskingSystem/static/js/main.dfb51675.js",
+    "main.js": "/maskingSystem/static/js/main.5329c7c5.js",
     "static/media/d.png": "/maskingSystem/static/media/d.8235b159fb596a9959cc.png",
     "index.html": "/maskingSystem/index.html",
     "main.8d5af97e.css.map": "/maskingSystem/static/css/main.8d5af97e.css.map",
-    "main.dfb51675.js.map": "/maskingSystem/static/js/main.dfb51675.js.map"
+    "main.5329c7c5.js.map": "/maskingSystem/static/js/main.5329c7c5.js.map"
   },
   "entrypoints": [
     "static/css/main.8d5af97e.css",
-    "static/js/main.dfb51675.js"
+    "static/js/main.5329c7c5.js"
   ]
 }
