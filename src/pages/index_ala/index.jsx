@@ -7,7 +7,7 @@ import { userInfoAdd ,getInfoEntryList } from './service.ts';
 import { useEffect } from 'react';
 import { ConfigProvider } from 'antd';
 import { createStyles } from 'antd-style';
-import ip from '../../components/gongwangIP/ip.ts';
+import {ip} from '../../components/gongwangIP/ip.ts';
 
 import './index.css';
 
