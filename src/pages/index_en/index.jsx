@@ -6,6 +6,7 @@ import arrowhead2 from '../../components/background/Arrowhead2.png';
 import { userInfoAdd ,getInfoEntryList } from './service.ts';
 import { ConfigProvider } from 'antd';
 import { createStyles } from 'antd-style';
+import { ip } from '../../components/gongwangIP/ip.ts';
 
 import './index.css';
 
@@ -40,36 +41,42 @@ const Login = () => {
   };
 
   // 表单提交处理
-const onFinish = async (values) => {
-  setLoading(true);
-  console.log('Received values:', values);
-  try {
-    // 使用await调用userInfoAdd接口
-    const res = await userInfoAdd(values);
-    console.log('res:',res.data.ok);
-    message.success('提交成功!');
-    setIsSubmitModalVisible(true);
-    // 清空输入框内容
-    formRef.current.resetFields();
-  } catch (error) {
-    message.error('提交失败: ' + error.message);
-  } finally {
-    setLoading(false);
-  }
-};
-
-  // 使用 useState 管理提交成功后的弹窗显示状态
+  // 先定义状态
   const [isSubmitModalVisible, setIsSubmitModalVisible] = useState(false);
-
+  
+  // 处理表单提交
+  const onFinish = async (values) => {
+    setLoading(true);
+    console.log('Received values:', values);
+    const res = await userInfoAdd(values);
+      console.log('res:',res);
+      message.success('提交成功!');
+      setIsSubmitModalVisible(true);
+      // 清空输入框内容
+      formRef.current.resetFields();
+    try {
+      // 使用await调用userInfoAdd接口
+      const res = await userInfoAdd(values);
+      console.log('res:',res.data.ok);
+      message.success('提交成功!');
+      setIsSubmitModalVisible(true);
+      // 清空输入框内容
+      formRef.current.resetFields();
+    } catch (error) {
+      message.error('提交失败: ' + error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
   // 处理提交成功弹窗关闭的函数
   const handleSubmitOk = () => {
     setIsSubmitModalVisible(false);
   };
-
+  
   const handleSubmitCancel = () => {
     setIsSubmitModalVisible(false);
   };
-
    // 使用 useState 管理卡片的缩放状态
   const [isCardHovered, setIsCardHovered] = useState(false);
 
@@ -210,13 +217,13 @@ const onFinish = async (values) => {
   // 根据选择的值打开相应的网站
   switch (value) {
     case 'website1':
-      window.open('https://46d35c013d33.ngrok-free.app/inspect?username=admin&password=123456', '_blank');
+      window.open(ip.website1 + '/inspect?username=admin&password=123456', '_blank');
       break;
     case 'website2':
-      window.open('https://9aafb966a954.ngrok-free.app/inspect?username=admin&password=123456', '_blank');
+      window.open(ip.website2 + '/inspect?username=admin&password=123456', '_blank');     
       break;
     case 'website3':
-      window.open('https://b8363f9e5916.ngrok-free.app/inspect?username=admin&password=123456', '_blank');
+      window.open(ip.website3 + '/inspect?username=admin&password=123456', '_blank');
       break;
     default:
       break;

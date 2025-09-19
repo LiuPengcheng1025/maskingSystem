@@ -57,17 +57,30 @@ useEffect(() => {
 
   // 处理表格行勾选
   const onSelectChange = async (newSelectedRowKeys) => {
-    setSelectedRowKeys(newSelectedRowKeys);
-    const selected = newSelectedRowKeys.map(key => 
-      tableData.find(item => item.id === key)?.id
-    ).filter(Boolean);
-    setSelectedNames(selected);
-    console.log('selected:',selected);
+  setSelectedRowKeys(newSelectedRowKeys);
+  const selected = newSelectedRowKeys.map(key => 
+    tableData.find(item => item.id === key)?.id
+  ).filter(Boolean);
+  setSelectedNames(selected);
+  console.log('selected:',selected);
+  
+  // 如果没有选中的项，直接清空tableData2
+  if (selected.length === 0) {
+    setTableData2([]);
+    return;
+  }
+  
+  try {
     const res = await getInsuranceList({aids:selected});
     console.log('res data:', res.data);
     // 确保tableData2是一个数组
     setTableData2(Array.isArray(res.data) ? res.data : (res.data?.data || []));
-  };
+  } catch (error) {
+    console.error('获取保险信息失败:', error);
+    // 发生错误时清空数据，避免显示错误数据
+    setTableData2([]);
+  }
+};
 
 
    const columns = [

@@ -63,10 +63,23 @@ useEffect(() => {
     ).filter(Boolean);
     setSelectedNames(selected);
     console.log('selected:',selected);
-    const res = await getInsuranceList({aids:selected});
-    console.log('res data:', res.data);
-    // 确保tableData2是一个数组
-    setTableData2(Array.isArray(res.data) ? res.data : (res.data?.data || []));
+    
+    // 如果没有选中的项，直接清空tableData2
+    if (selected.length === 0) {
+      setTableData2([]);
+      return;
+    }
+    
+    try {
+      const res = await getInsuranceList({aids:selected});
+      console.log('res data:', res.data);
+      // 确保tableData2是一个数组
+      setTableData2(Array.isArray(res.data) ? res.data : (res.data?.data || []));
+    } catch (error) {
+      console.error('获取保险信息失败:', error);
+      // 发生错误时清空数据，避免显示错误数据
+      setTableData2([]);
+    }
   };
 
 

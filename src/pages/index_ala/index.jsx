@@ -7,6 +7,7 @@ import { userInfoAdd ,getInfoEntryList } from './service.ts';
 import { useEffect } from 'react';
 import { ConfigProvider } from 'antd';
 import { createStyles } from 'antd-style';
+import ip from '../../components/gongwangIP/ip.ts';
 
 import './index.css';
 
@@ -35,7 +36,7 @@ const onFinish = async (values) => {
   try {
     // 使用await调用userInfoAdd接口
     const res = await userInfoAdd(values);
-    console.log('res:',res.data.ok);
+    console.log('res:',res);
     message.success('提交成功!');
     setIsSubmitModalVisible(true);
     // 清空输入框内容
@@ -200,14 +201,14 @@ const onFinish = async (values) => {
   // 根据选择的值打开相应的网站
   switch (value) {
     case 'website1':
-      window.open('https://46d35c013d33.ngrok-free.app/inspect?username=admin&password=123456', '_blank');
-      break;
-    case 'website2':
-      window.open('https://9aafb966a954.ngrok-free.app/inspect?username=admin&password=123456', '_blank');
-      break;
-    case 'website3':
-      window.open('https://b8363f9e5916.ngrok-free.app/inspect?username=admin&password=123456', '_blank');
-      break;
+          window.open(ip.website1 + '/inspect?username=admin&password=123456', '_blank');
+          break;
+        case 'website2':
+          window.open(ip.website2 + '/inspect?username=admin&password=123456', '_blank');     
+          break;
+        case 'website3':
+          window.open(ip.website3 + '/inspect?username=admin&password=123456', '_blank');
+          break;
     default:
       break;
   }
